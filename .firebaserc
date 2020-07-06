@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "cold-flex",
+    "cold-flex": "cold-flex",
+    "testing": "cold-flex"
+  }
+}

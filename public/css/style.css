@@ -1,0 +1,76 @@
+body{
+    font-family: 'Roboto';
+    background-image:linear-gradient(to right,#36485E 0,rgba(0,0,0,.42) 100%,transparent 0);
+}
+
+.text-h3{
+    color: #595959;
+    font-weight: normal;
+    font-size: 18px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.logo{
+    display: block;
+    height: 60px;
+    padding: 5px 0px 5px 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col-md-12{
+    display: block;
+    width: 328px;
+    margin: 0px auto 20px auto;
+    font-size: 14px;
+}
+
+.holder{
+    background-color: #F2F2F2;
+    width: 95%;
+    border: none;
+    height: 50px;
+    padding-left: 15px;
+    outline-width: 0px;
+    outline: #F2F2F2;
+}
+
+.login-page{
+    width: 360px;
+    height: 450px;
+    background-color: white;
+    margin: 8% auto;
+    box-shadow: 1px 1px 5px 0px #000000;
+}
+
+a {
+    font-weight: normal;
+}
+
+.bottom-text{
+    text-align: center;
+    color: #417DD8; 
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.bottom-text:link{
+    text-decoration: none;
+}
+
+.btnLogin{
+    display: block;
+    font-size: 18px;
+    color:#000000;
+    cursor: pointer;
+    border: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;    
+    background: #FEC005;
+    width: 328px; 
+    height: 49px;
+    margin:0 auto; 
+    margin-bottom: 0px;
+}
