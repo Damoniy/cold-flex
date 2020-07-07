@@ -187,3 +187,8 @@
       document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
       document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
     }
+
+    function getDate(){
+      var now = new Date;
+      document.write(now.toLocaleDateString())
+    }

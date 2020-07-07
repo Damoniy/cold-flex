@@ -4,15 +4,29 @@
 		<title>Cold Flex Web | Dashboard</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
-		
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet"/>
+
 		<link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script src="https://momentjs.com/downloads/moment.js"></script>
 	</head>
 
 	<body>
 		<header>
 			<nav class="navbar">
 				<img class="logo" src="resources/img/nav-icon.png"/>
+					<small class="main_menu" >Menu Principal</small>
+					<small class="logout">Logout</small>
+					<small class="date">Data atual<p>
+						<script>getDate();</script></p></small>
 			</nav>
 		</header>
+
+		<div class="block">
+			<a  href="gestao_financeira.html"><img src="resources/img/gestao_financeira.png"></a>
+			<a  href="gestao_financeira.html"><img src="resources/img/gestao_producao.png" ></a>
+			<a  href="gestao_financeira.html"><img src="resources/img/gestao_usuarios.png" ></a>
+		</div>
 	</body>
 </html>

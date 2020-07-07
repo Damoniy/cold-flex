@@ -1,5 +1,6 @@
 body{
     font-family: 'Roboto';
+    
 }
 
 *{
@@ -11,11 +12,62 @@ body{
     list-style-type: none;
     padding: 0;
     margin: 0;
-    background-color: black;
+    background-color: #33373A;
     width: 100%;
+    height: 50px;
 }
 
 .logo{
+    padding-top: 9px;
     padding-left: 10px;
     height: 33px;
+}
+
+.main_menu{
+    color: #E2E2E2;
+    font-size: 14px;
+    margin: 0;
+    font-family: 'Arial';
+    position: absolute;
+    transform: translate(60px, 17px)
+}
+
+.block{
+    width: 52%;
+    height: 25%;
+    position: absolute;
+    margin: 0;
+    top: 25%;
+    left: 25%
+}
+
+.content{
+    height: 100%;
+    width: 32%;
+    margin: 0;
+    margin-left: 4px;
+    margin-right: 4px;
+    float: left;
+    font-family: 'Roboto', sans-serif;
+    background-color: #F3F3F3;
+}
+
+.logout{
+    color: #E2E2E2;
+    font-size: 20;
+    font-style: italic;
+    text-decoration: underline;
+    cursor: pointer;
+    position: absolute;
+    top:15px;
+    left: 85%;
+}
+
+.date{
+    text-align: center;
+    position: absolute;
+    left: 91%;
+    top: 12px;
+    font-size: 12px;
+    color: honeydew;
 }
