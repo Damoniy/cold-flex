@@ -1,93 +1,121 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Cold Flex Web | Login</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> New Document </TITLE>
+<STYLE>
+.abaOn {font-family:arial; font-size:14; background-color:#DDDDDD; cursor:pointer; border-right: 1px solid #999; border-left: 1px solid #999; border-top: 1px solid #999; font-weight:bold}
+.abaOff {font-family:arial; font-size:14; background-color:#DDDDDD; cursor:pointer; border-right: 1px solid #999; border-left: 1px solid #999; border-top: 1px solid #999; border-bottom: 1px solid #999}
+.abaNulo {background-color:#FFFFFF; border-right: 1px transparent #999; border-left: 1px transparent #999; border-top: 1px transparent #999; border-bottom: 1px solid #999}
+.aba0 {background-color:#DDDDDD; border-bottom:''; font-weight:bold} 
+</STYLE>
 
-		<link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet"/>
+<SCRIPT LANGUAGE="JavaScript">
+function Aba(pAba) {
+	if (pAba == 0) {
+		document.getElementById("Aba0").style.visibility = "visible";
+		document.getElementById("Aba1").style.visibility = "hidden";
+		document.getElementById("Aba2").style.visibility = "hidden";
+		document.getElementById("TdAba0").className = "abaOn";
+		document.getElementById("TdAba1").className = "abaOff";
+		document.getElementById("TdAba2").className = "abaOff";
+	}
+	else 
+	if (pAba == 1) {
+		document.getElementById("Aba0").style.visibility = "hidden";
+		document.getElementById("Aba1").style.visibility = "visible";
+		document.getElementById("Aba2").style.visibility = "hidden";
+		document.getElementById("TdAba0").className = "abaOff";
+		document.getElementById("TdAba1").className = "abaOn";
+		document.getElementById("TdAba2").className = "abaOff";
+	}
+	else
+	if (pAba == 2) {
+		document.getElementById("Aba0").style.visibility = "hidden";
+		document.getElementById("Aba1").style.visibility = "hidden";
+		document.getElementById("Aba2").style.visibility = "visible";
+		document.getElementById("TdAba0").className = "abaOff";
+		document.getElementById("TdAba1").className = "abaOff";
+		document.getElementById("TdAba2").className = "abaOn";
+	}
+  }
+</SCRIPT>
 
-		<link rel="stylesheet" type="text/css" href="css/signup.css"/>
-		<script src="/__/firebase/7.15.0/firebase-app.js"></script>
-		<script src="/__/firebase/7.15.0/firebase-database.js"></script>
-		<script type="text/javascript" src="js/app.js"></script>
-		<script src="/__/firebase/7.15.0/firebase-auth.js"></script>
+</HEAD>
 
-		<script>
-			// Your web app's Firebase configuration
-			var firebaseConfig = {
-			  apiKey: "AIzaSyAnUv21hhUyUc1lbQkob-YzRU-99KcrQLE",
-			  authDomain: "cold-flex.firebaseapp.com",
-			  databaseURL: "https://cold-flex.firebaseio.com",
-			  projectId: "cold-flex",
-			  storageBucket: "cold-flex.appspot.com",
-			  messagingSenderId: "152521814699",
-			  appId: "1:152521814699:web:9aa23af4c03214a4603dee",
-			  measurementId: "G-5SPM1QE1CL"
-			};
-			// Initialize Firebase
-			firebase.initializeApp(firebaseConfig);
-		</script>
+<BODY onLoad="Aba(0)" >
 
-		<script type="text/javascript">
-			window.onload = function() {
-				initApp();
-			}
-		</script>
+<FORM METHOD=POST ACTION="">
 
-	</head>
+<div style="height: 20px; width: 480px; left: 10px; top: 78px; visibility: visible; position:absolute; background-color:#DDDDDD">
+<table border="0" cellspacing="0" width="700">
+	<tr>
+		<td id="TdAba0" align="center" width="25%" class="abaOn" onClick="Aba(0)" title="Cliente">
+			&nbsp;Cliente&nbsp;
+		</td>
+		<td id="TdAba1" align="center" width="25%" class="abaOff" onClick="Aba(1)" title="Solicitação Serviço">
+			&nbsp;Solicitação Serviço&nbsp;
+		</td>
+		<td id="TdAba2" align="center" width="20%" class="abaOff" onClick="Aba(2)" title="Procedimentos">
+			&nbsp;Procedimentos&nbsp;
+		</td>
+		<td align="center" width="30%" class="abaNulo">
+			&nbsp;
+		</td>
+	</tr>
+</table>
+</div>
 
-	<body>
-		<div class="login-page">
-			<div class="form">
-				<div style="background-color:#595959; width:100%;">
-					<img class="logo" src="resources/img/logoac.png"/>
-				</div>
-				<form id="frm" class="login-form">
-					<div class="row">
-		
-						<h3 class="text-h3">COLD FLEX UI</h3>
-						<div class="col-md-12">
-							<input class="holder" type="text" name="txtEmail" placeholder="E-MAIL" id="txtEmail" style="text-transform:uppercase" />
-						</div>
-						<div class="col-md-12">
-							<input class="holder" type="password" name="txtSenha" placeholder="SENHA" id="txtPassword" />
-						</div>
-						<div class="col-md-12">
-							<input class="holder" type="text" name="txtMatricula" placeholder="CRACHÁ" id="txtMatricula" />
-						</div>
-						<div class="col-md-12">
-							<input class="holder" type="text" name="txtNome" placeholder="NOME" id="txtNome" />
-						</div>
-						<div class="col-md-12">
-							<input class="holder" type="text" name="txtLastName" placeholder="SOBRENOME" id="txtLastName" />
-						</div>
-						<div class="col-md-12">
-						<select name="loja" id="loja" style="text-transform: uppercase;">
-							<option value="ppg">PPG</option>
-							<option value="ptg">PTG</option>
-						</select></div>
+<div id="Aba0" style="height: 500px; width: 700px; left: 10px; top: 100px; visibility: visible; position:absolute; background-color:#DDDDDD; border-right: 1px solid #999; border-left: 1px solid #999; border-bottom: 1px solid #999">
+	<TABLE width="100%" border="0">
+	<TR>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD>Nome:</TD>
+		<TD><input type="text" name="" size="30"></TD>
+	</TR>
+	<TR>
+		<TD>Endereço:</TD>
+		<TD><input type="text" name="" size="30"></TD>
+	</TR>
+	</TABLE>
+</div>
 
-						<div class="col-md-12" style="margin-bottom:5px;">
-							<small id="passwordHelpInline" class="text-muted" style="margin-bottom:15px;color:black">
-								Preencha todos os dados para proseguir.
-							</small>
-						</div>
-						<div class="col-md-12">
-							<input id="btnSignUp" type="button" value="Cadastrar" class="btnSignUp" onclick="writeUserData()"/>
-						</div>
-		
-						<div class="bottom-text">
-							<a class="bottom-text" href="/CadastroColaborador/CadastroColaborador" style="text-decoration: none;" >Esqueci a senha</a>
-							<br /><br />
-							<a class="bottom-text" href="/CadastroColaborador/CadastroLoja" style="text-decoration: none;" >Recuperar senha da loja</a>
-						</div>
-						<div id="divErr"></div>
-						<input type="hidden" id="hidResult" name="hidResult" />
-						<input type="hidden" name="redirect" value="" />
-					</div>
-				</form>
-			</div>
-		</div>
-	</body>
-</html>
+<div id="Aba1" style="height: 500px; width: 700px; left: 10px; top: 100px; visibility: hidden; position:absolute; background-color:#DDDDDD; border-right: 1px solid #999; border-left: 1px solid #999; border-bottom: 1px solid #999">
+	<TABLE width="100%" border="0">
+	<TR>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD>Tipo:</TD>
+		<TD><input type="checkbox" name=""></TD>
+	</TR>
+	<TR>
+		<TD>Endereço:</TD>
+		<TD><input type="text" name="" size="30"></TD>
+	</TR>
+	</TABLE>
+</div>
+
+<div id="Aba2" style="height: 500px; width: 700px; left: 10px; top: 100px; visibility: hidden; position:absolute; background-color:#DDDDDD; border-right: 1px solid #999; border-left: 1px solid #999; border-bottom: 1px solid #999">
+	<TABLE width="100%" border="0">
+	<TR>
+		<TD>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD>Código:</TD>
+		<TD><input type="text" name="" size="30"></TD>
+	</TR>
+	<TR>
+		<TD>Descrição:</TD>
+		<TD><input type="text" name="" size="30"></TD>
+	</TR>
+	</TABLE>
+</div>
+
+<br>
+
+</FORM>
+
+</BODY>
+</HTML>
