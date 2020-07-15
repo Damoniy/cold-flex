@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cold Flex Web | Login</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet"/>
+
+		<link rel="stylesheet" type="text/css" href="css/signup.css"/>
+		<script src="/__/firebase/7.15.0/firebase-app.js"></script>
+		<script src="/__/firebase/7.15.0/firebase-database.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script src="/__/firebase/7.15.0/firebase-auth.js"></script>
+
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+			  apiKey: "AIzaSyAnUv21hhUyUc1lbQkob-YzRU-99KcrQLE",
+			  authDomain: "cold-flex.firebaseapp.com",
+			  databaseURL: "https://cold-flex.firebaseio.com",
+			  projectId: "cold-flex",
+			  storageBucket: "cold-flex.appspot.com",
+			  messagingSenderId: "152521814699",
+			  appId: "1:152521814699:web:9aa23af4c03214a4603dee",
+			  measurementId: "G-5SPM1QE1CL"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+		</script>
+
+		<script type="text/javascript">
+			window.onload = function() {
+				initApp();
+			}
+		</script>
+
+	</head>
+
+	<body>
+		<div class="login-page">
+			<div class="form">
+				<div style="background-color:#595959; width:100%;">
+					<img class="logo" src="resources/img/logoac.png"/>
+				</div>
+				<form id="frm" class="login-form">
+					<div class="row">
+		
+						<h3 class="text-h3">COLD FLEX UI</h3>
+						<div class="col-md-12">
+							<input class="holder" type="text" name="txtEmail" placeholder="E-MAIL" id="txtEmail" style="text-transform:uppercase" />
+						</div>
+						<div class="col-md-12">
+							<input class="holder" type="password" name="txtSenha" placeholder="SENHA" id="txtPassword" />
+						</div>
+						<div class="col-md-12">
+							<input class="holder" type="text" name="txtMatricula" placeholder="CRACHÁ" id="txtMatricula" />
+						</div>
+						<div class="col-md-12">
+							<input class="holder" type="text" name="txtNome" placeholder="NOME" id="txtNome" />
+						</div>
+						<div class="col-md-12">
+							<input class="holder" type="text" name="txtLastName" placeholder="SOBRENOME" id="txtLastName" />
+						</div>
+						<div class="col-md-12">
+						<select name="loja" id="loja" style="text-transform: uppercase;">
+							<option value="ppg">PPG</option>
+							<option value="ptg">PTG</option>
+						</select></div>
+
+						<div class="col-md-12" style="margin-bottom:5px;">
+							<small id="passwordHelpInline" class="text-muted" style="margin-bottom:15px;color:black">
+								Preencha todos os dados para proseguir.
+							</small>
+						</div>
+						<div class="col-md-12">
+							<input id="btnSignUp" type="button" value="Cadastrar" class="btnSignUp" onclick="writeUserData()"/>
+						</div>
+		
+						<div class="bottom-text">
+							<a class="bottom-text" href="/CadastroColaborador/CadastroColaborador" style="text-decoration: none;" >Esqueci a senha</a>
+							<br /><br />
+							<a class="bottom-text" href="/CadastroColaborador/CadastroLoja" style="text-decoration: none;" >Recuperar senha da loja</a>
+						</div>
+						<div id="divErr"></div>
+						<input type="hidden" id="hidResult" name="hidResult" />
+						<input type="hidden" name="redirect" value="" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

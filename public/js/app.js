@@ -1,5 +1,20 @@
 
-      /**
+    (function(){
+          // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAnUv21hhUyUc1lbQkob-YzRU-99KcrQLE",
+        authDomain: "cold-flex.firebaseapp.com",
+        databaseURL: "https://cold-flex.firebaseio.com",
+        projectId: "cold-flex",
+        storageBucket: "cold-flex.appspot.com",
+        messagingSenderId: "152521814699",
+        appId: "1:152521814699:web:9aa23af4c03214a4603dee",
+        measurementId: "G-5SPM1QE1CL"
+      };
+      // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+      }());
+    /**
      * Handles the sign in button press.
      */
     function toggleSignIn() {
@@ -42,50 +57,88 @@
     function initApp(){
       firebase.auth().onAuthStateChanged(function(user) {
         
+        var userId = firebase.auth().currentUser.uid;
+        var docRef = firebase.database().ref('/users/' + userId);
+        var tier = 2;
+
         if (user) {
           //online
-          window.location.href = "dashboard.html";
-
-        } else {
-          //offline
-          var db = firebase.firestore();
-
-          db.collection("users").doc('2151563').set({
-            first: "support",
-            tier:0,
-            id: 1815
+          docRef.once('value').then(function(snapshot) {
+            tier = snapshot.val().tier;
           })
-          .then(function() {
-              console.log("Document written with ID: ");
-          })
-          .catch(function(error) {
-              console.error("Error adding document: ", error);
-          });
-        }
+          
+          if(tier == 1){
+            window.location.href = "dashboard.html";
+          } else {
+            window.location.href = "insertion.html";
+          }
+        } else {}
+      });
+    }
+
+    function logOut() {
+      firebase.auth().signOut().then(function() {
+        window.location.href = "index.html";
+      }).catch(function(error) {
+        // An error happened.
+        console.log(error)
       });
       }
 
-    function logOut() {
-      firebase.auth().signOut();
-      }
+      function getName(){
+        firebase.auth().onAuthStateChanged(function(user) {
+
+        if (user) {
+          var userId = firebase.auth().currentUser.uid;
+          var docRef = firebase.database().ref('/users/' + userId);
+
+          docRef.once('value').then(function(snapshot) {
+            var name = "name ".replace("name", snapshot.val().nome);
+            name = name + snapshot.val().sobrenome;
+            
+            
+            document.getElementById("name").innerHTML = "BEM VINDO, " + name;
+          })
+      }});      
+    }
     
     /**
      * Handles the sign up button press.
      */
     function handleSignUp() {
-      var email = document.getElementById('email').value;
-      var password = document.getElementById('password').value;
+      var email = document.getElementById('txtEmail').value;
+      var password = document.getElementById('txtPassword').value;
+      var id = document.getElementById('txtMatricula').value;
+      var name = document.getElementById('txtNome').value;
+      var lastName = document.getElementById('txtLastName').value;
+      var store = document.getElementById('loja').value;
       if (email.length < 4) {
-        alert('Please enter an email address.');
+        alert('Email inválido!!');
         return;
       }
       if (password.length < 4) {
-        alert('Please enter a password.');
+        alert('Senha não segura!!');
         return;
       }
       // Sign in with email and pass.
       // [START createwithemail]
-      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      firebase.auth().createUserWithEmailAndPassword(email, password).then(function(user){
+        sendEmailVerification();
+
+        firebase.auth().signInWithEmailAndPassword(email, password);
+
+        var uid = firebase.auth().currentUser.uid;
+
+        firebase.database().ref('users/' + uid).set({
+          nome: name,
+          sobrenome: lastName,
+          email: email,
+          matricula : id,
+          loja: store,
+          tier: 2
+        })
+
+      }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -139,56 +192,21 @@
       // [END sendpasswordemail];
     }
 
-    /**
-     * initApp handles setting up UI event listeners and registering Firebase auth listeners:
-     *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
-     *    out, and that is where we update the UI.
-     */
-    function initApp2() {
-      // Listening for auth state changes.
-      // [START authstatelistener]
-      firebase.auth().onAuthStateChanged(function( ) {
-        // [START_EXCLUDE silent]
-        document.getElementById('quickstart-verify-email').disabled = true;
-        // [END_EXCLUDE]
-        if (user) {
-          // User is signed in.
-          var displayName = user.displayName;
-          var email = user.email;
-          var emailVerified = user.emailVerified;
-          var photoURL = user.photoURL;
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          var providerData = user.providerData;
-          // [START_EXCLUDE]
-          document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
-          document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-          document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-          if (!emailVerified) {
-            document.getElementById('quickstart-verify-email').disabled = false;
-          }
-          // [END_EXCLUDE]
-        } else {
-          // User is signed out.
-          // [START_EXCLUDE]
-          document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
-          document.getElementById('quickstart-sign-in').textContent = 'Sign in';
-          document.getElementById('quickstart-account-details').textContent = 'null';
-          // [END_EXCLUDE]
-        }
-        // [START_EXCLUDE silent]
-        document.getElementById('quickstart-sign-in').disabled = false;
-        // [END_EXCLUDE]
-      });
-      // [END authstatelistener]
-
-      document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
-      document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
-      document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
-      document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
-    }
-
     function getDate(){
       var now = new Date;
       document.write(now.toLocaleDateString())
+    }
+
+    function writeUserData() {
+      var email = document.getElementById('txtEmail').value;
+      var id = document.getElementById('txtMatricula').value;
+      var name = document.getElementById('txtNome').value;
+
+      var userId = firebase.auth().currentUser.uid;
+
+      firebase.database().ref('users/' + userId).set({
+        username: name,
+        email: email,
+        profile_picture : id
+      });
     }
