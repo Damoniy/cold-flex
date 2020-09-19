@@ -14,7 +14,10 @@
       // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
       }());
-    /**
+      
+    const db = firebase.database();
+
+      /**
      * Handles the sign in button press.
      */
     function toggleSignIn() {
@@ -56,22 +59,24 @@
 
     function initApp(){
       firebase.auth().onAuthStateChanged(function(user) {
-        
-        var userId = firebase.auth().currentUser.uid;
-        var docRef = firebase.database().ref('/users/' + userId);
-        var tier = 2;
-
+      
         if (user) {
           //online
+          var userId = firebase.auth().currentUser.uid;
+          var docRef = db.ref('/users/' + userId);
+
           docRef.once('value').then(function(snapshot) {
-            tier = snapshot.val().tier;
-          })
-          
-          if(tier == 1){
-            window.location.href = "dashboard.html";
-          } else {
-            window.location.href = "insertion.html";
-          }
+            var tier = snapshot.val().tier;
+
+            if(tier == "1") {
+              window.setTimeout(function(){window.location.href = "dashboard.html";}, 0000);
+        
+            } else if(tier == "2"){
+              window.setTimeout(function(){window.location.href = "insertion.html";}, 0000);
+            }
+
+            console.log(tier);
+          });
         } else {}
       });
     }
@@ -90,14 +95,14 @@
 
         if (user) {
           var userId = firebase.auth().currentUser.uid;
-          var docRef = firebase.database().ref('/users/' + userId);
+          var docRef = db.ref('/users/' + userId);
 
           docRef.once('value').then(function(snapshot) {
             var name = "name ".replace("name", snapshot.val().nome);
             name = name + snapshot.val().sobrenome;
             
             
-            document.getElementById("name").innerHTML = "BEM VINDO, " + name;
+            document.getElementById("name").innerHTML = name;
           })
       }});      
     }
@@ -127,17 +132,20 @@
 
         firebase.auth().signInWithEmailAndPassword(email, password);
 
-        var uid = firebase.auth().currentUser.uid;
+        var userId = firebase.auth().currentUser.uid;
 
-        firebase.database().ref('users/' + uid).set({
+        alert(userId);
+
+        const refObj = firebase.database().ref().child('users/' + userId);
+
+        refObj.set({
           nome: name,
           sobrenome: lastName,
           email: email,
           matricula : id,
           loja: store,
-          tier: 2
-        })
-
+          tier: "2"
+        });
       }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -174,7 +182,7 @@
       firebase.auth().sendPasswordResetEmail(email).then(function() {
         // Password Reset Email Sent!
         // [START_EXCLUDE]
-        alert('Password Reset Email Sent!');
+        alert('Foi enviado um e-mail para redefinição da senha!');
         // [END_EXCLUDE]
       }).catch(function(error) {
         // Handle Errors here.
@@ -194,19 +202,5 @@
 
     function getDate(){
       var now = new Date;
-      document.write(now.toLocaleDateString())
-    }
-
-    function writeUserData() {
-      var email = document.getElementById('txtEmail').value;
-      var id = document.getElementById('txtMatricula').value;
-      var name = document.getElementById('txtNome').value;
-
-      var userId = firebase.auth().currentUser.uid;
-
-      firebase.database().ref('users/' + userId).set({
-        username: name,
-        email: email,
-        profile_picture : id
-      });
+      document.write(now.toLocaleDateString());
     }

@@ -5,7 +5,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
 		<link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet"/>
-		<link rel="stylesheet" type="text/css" href="css/dashboard.css"/>
+		<link rel="stylesheet" type="text/css" href="css/dashboard.css" media="screen and (min-width: 641px)">
+		<link rel="stylesheet" type="text/css" href="css/smartphone-insertion.css" media="screen and (max-width: 640px)"/>
 		<script src="/__/firebase/7.15.0/firebase-app.js"></script>
 		<script src="/__/firebase/7.15.0/firebase-database.js"></script>
 		<script src="/__/firebase/7.15.0/firebase-auth.js"></script>
@@ -26,20 +27,17 @@
 
 		<div class="user-menu">
 			<div>
-				<input type="button" class="menu_button" value="Fechamento de Dia" onclick="">
+				<a href="abertura.html"><input type="button" class="menu_button" value="Abertura de Dia"></a>
 			</div>
 			<div>
-				<input type="button" class="menu_button" value="Contagem do Estoque" onclick="">
+				<a href="fechamento.html"><input type="button" class="menu_button" value="Fechamento de Dia"></a>
 			</div>
 			<div>
-				<input type="button" class="menu_button" value="Caderno de Controle Digital" onclick="">
+				<a href="inventario.html"><input type="button" class="menu_button" value="Contagem do Estoque"></a>
 			</div>
 			<div>
-				<input type="button" class="menu_button" value="Editar Perfil" onclick="">
+				<a href="sangrias.html"><input type="button" class="menu_button" value="Registrar Sangria"></a>
 			</div>
-			<div>
-				<input type="button" class="menu_button" value="Envie uma selfie" onclick="">
-			</div>
-		</div>
+		</div> 
 	</body>
 </html> 

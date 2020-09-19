@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cold Flex Web | Dashboard</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="css/smartphone-inventario.css" media="screen and (max-width: 640px)"/>
+        <link rel="stylesheet" type="text/css" href="css/dashboard.css" media="screen and (min-width: 641px)"/>
+        <link rel="stylesheet" type="text/css" href="css/send.css" media="screen and (min-width: 641px)"/>
+		<script src="/__/firebase/7.15.0/firebase-app.js"></script>
+		<script src="/__/firebase/7.15.0/firebase-database.js"></script>
+		<script src="/__/firebase/7.15.0/firebase-auth.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/send.js"></script>
+
+	</head>
+
+	<body>
+		<header>
+			<nav class="navbar">
+				<img class="logo" src="resources/img/nav-icon.png"/>
+					<a class="main_menu" href="/index.html">Menu Principal</a>
+					<div><small id="name" class="username"><script>getName();</script></small>			
+					<input type="button" class="logout" value="Logout" onclick="logOut();"></div>	
+					<small class="date">Data atual<p><script>getDate();</script></p></small>
+			</nav>
+		</header>
+
+		<div class="data">
+			<select class="combo_send" id="kiosk" style="text-transform: uppercase;">
+				<option value="muffato ppg">MUFFATO UVARANAS</option>
+                <option value="tozetto ppg">TOZETTO OFICINAS</option>
+                <option value="shopp total">SHOPPING TOTAL</option>
+                <option value="muffato ptg">MUFFATO OLARIAS</option>
+                <option value="tozetto ptg">TOZETTO JD. CARVALHO</option>
+				<option value="hcondor ptg">HIPERCONDOR UVARANAS</option>
+            </select>   
+            <div class="col-md-12">
+                <input class="holder" type="text" name="txtValor" placeholder="VALOR DA BANANA" id="txtValor"/>
+            </div>
+            <div class="col-md-12">
+                <input class="holder" type="text" name="txtLacre" placeholder="NÚMERO DA BANANA" id="txtLacre"/>
+            </div>
+            <div class="col-md-12"> TIPO:  
+            <select name="sangria" id="tipoSangria" style="text-transform: uppercase;">
+                <option value="parcial">SANGRIA PARCIAL</option>
+                <option value="total">SANGRIA TOTAL</option>
+            </select></div>
+            <div>
+				<input type="button" class="send_button" value="Enviar" onclick="sangria();">
+			</div>
+		</div> 
+	</body>

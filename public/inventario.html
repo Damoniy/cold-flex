@@ -1,0 +1,568 @@
+<!DOCType html>
+
+<html>
+    <head>
+		<title>Cold Flex Web | Contagem diária</title>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+        
+		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="css/smartphone-inventario.css" media="screen and (max-width: 640px)"/>
+        <link rel="stylesheet" type="text/css" href="css/dashboard.css" media="screen and (min-width: 641px)"/>
+        <link rel="stylesheet" type="text/css" href="css/table.css" media="screen and (min-width: 641px)"/>
+        
+        <script src="/__/firebase/7.15.0/firebase-app.js"></script>
+		<script src="/__/firebase/7.15.0/firebase-database.js"></script>
+		<script src="/__/firebase/7.15.0/firebase-auth.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/contagem.js"></script>
+        <script type="text/javascript" src="js/jspdf.debug.js"></script>
+        <script type="text/javascript" src="js/jspdf.plugin.autotable.js"></script>
+        <script type="text/javascript">window.onload = function() {injectTxt();}</script>
+
+    </head>
+
+    <body>
+        <header>
+			<nav class="navbar">
+				<img class="logo" src="resources/img/nav-icon.png"/>
+                    <a class="main_menu" href="/index.html">Menu Principal</a>
+                    <div><small id="name" class="username"><script>getName();</script></small>
+                    <small class="logout">Logout</small>
+					<small id="date" class="date">Data atual<p><script>getDate();</script></p></small>
+			</nav>
+        </header>
+        <div class="table">
+                <table class="tg" id="customers">
+                <thead>
+                <tr>
+                    <th class="top-row" id="column1">PRODUTO</th>
+                    <th class="top-row" id="column2">CAIXA</th>
+                    <th class="top-row" id="column3">PACOTE</th>
+                    <th class="top-row" id="column4">UNIDADE</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="row" id="prod0"></td>
+                    <td class="row">
+                            <input type="text"  value="0" id="cx0" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="text" value="0" id="pct0" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="text" value="0" id="und0" class="ph">   L
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod1"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx1" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct1" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und1" class="ph">   L
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod2"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx2" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct2" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und2" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod3"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx3" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct3" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und3" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod4"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx4" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct4" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und4" class="ph">   ML
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod5"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx5" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct5" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und5" class="ph">   ML
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod6"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx6" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct6" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und6" class="ph">   KG
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod7"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx7" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct7" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und7" class="ph">   KG
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod8"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx8" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct8" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und8" class="ph">   KG
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod9"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx9" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct9" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und9" class="ph">   KG
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod10"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx10" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct10" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und10" class="ph">   G
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod11"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx11" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct11" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und11" class="ph">   G
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod12"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx12" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct12" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und12" class="ph">   G
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod13"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx13" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct13" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und13" class="ph">   KG
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod14"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx14" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct14" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und14" class="ph">   KG
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod15"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx15" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct15" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und15" class="ph">   KG
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod16"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx16" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct16" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und16" class="ph">   KG
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod17"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx17" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct17" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und17" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod18"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx18" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct18" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und18" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod19"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx19" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct19" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und19" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod20"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx20" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct20" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und20" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod21"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx21" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct21" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und21" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod22"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx22" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct22" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und22" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod23"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx23" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct23" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und23" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod24"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx24" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct24" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und24" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod25"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx25" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct25" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und25" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod26"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx26" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct26" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und26" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod27"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx27" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct27" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und27" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod28"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx28" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct28" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und28" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod29"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx29" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct29" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und29" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod30"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx30" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct30" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und30" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod31"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx31" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct31" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und31" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod32"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx32" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct32" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und32" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod33"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx33" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct33" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und33" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod34"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx34" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct34" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und34" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="prod35"></td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="cx35" class="ph">
+                    </td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="pct35" class="ph">
+                    </td>
+                    <td class="und">
+                        <input type="placeholder" value="0" id="und35" class="ph">   UND
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row"></td>
+                </tr>
+                <tr>
+                    <td class="top-row" id="comp0" class="ph"></td>
+                    <td class="top-row" id="item" class="ph"></td>
+                    <td class="top-row" id="imcomp0" class="ph"></td>
+                    <td class="top-row" id="item0" class="ph"></td>
+                </tr>
+                <tr>
+                    <td class="row" id="name1">CASQUINHA</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="comp1" class="ph">
+                    </td>
+                    <td class="row">CASQUINHA</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="imcomp1" class="ph">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="name2">MC COLOSSO</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="comp2" class="ph">
+                    </td>
+                    <td class="row">MC COLOSSO</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="imcomp2" class="ph">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="name3">SUNDAE</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="comp3" class="ph">
+                    </td>
+                    <td class="row">SUNDAE</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="imcomp3" class="ph">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="name4">TOP SUNDAE</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="comp4" class="ph">
+                    </td>
+                    <td class="row">TOP SUNDAE</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="imcomp4" class="ph">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="name5">MC FLURRY</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="comp5" class="ph">
+                    </td>
+                    <td class="row">MC FLURRY</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="imcomp5" class="ph">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="row" id="name6">MC SHAKE</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="comp6" class="ph">
+                    </td>
+                    <td class="row">MC SHAKE</td>
+                    <td class="row">
+                        <input type="placeholder" value="0" id="imcomp6" class="ph">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="menu_table">    
+                <select class="combo_table2" id="kiosk" style="text-transform: uppercase;">
+                    <option value="muffato ppg">MUFFATO UVARANAS</option>
+                    <option value="tozetto ppg">TOZETTO OFICINAS</option>
+                    <option value="shopp total">SHOPPING TOTAL</option>
+                    <option value="muffato ptg">MUFFATO OLARIAS</option>
+                    <option value="tozetto ptg">TOZETTO JD. CARVALHO</option>
+                    <option value="hcondor ptg">HIPERCONDOR UVARANAS</option>
+                </select>    
+                <select class="combo_table" id="turno" style="text-transform: uppercase;">
+                    <option value="abertura">ABERTURA</option>
+                    <option value="fechamento">FECHAMENTO</option>
+                </select>
+                <input type="button" class="send_button_table" value="GERAR IMAGEM" onclick="generate();">
+            </div>
+        </div>
+    </body>
+</html>
+              
